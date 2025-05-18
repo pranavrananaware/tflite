@@ -4,36 +4,40 @@ version '1.0-SNAPSHOT'
 buildscript {
     repositories {
         google()
-        jcenter()
+        mavenCentral()  // replaced jcenter() with mavenCentral()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.3'
+        classpath 'com.android.tools.build:gradle:7.3.1'  // updated gradle plugin version
     }
 }
 
 rootProject.allprojects {
     repositories {
         google()
-        jcenter()
+        mavenCentral()  // replaced jcenter() with mavenCentral()
     }
 }
 
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 33  // updated SDK version
+
+    namespace 'sq.flutter.tflite'  // REQUIRED for Android Gradle Plugin 7.0+
 
     defaultConfig {
         minSdkVersion 19
+        targetSdkVersion 33  // added targetSdkVersion
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
+
     lintOptions {
         disable 'InvalidPackage'
     }
+}
 
-    dependencies {
-        compile 'org.tensorflow:tensorflow-lite:+'
-        compile 'org.tensorflow:tensorflow-lite-gpu:+'
-    }
+dependencies {
+    implementation 'org.tensorflow:tensorflow-lite:2.9.0'  // updated and specific versions
+    implementation 'org.tensorflow:tensorflow-lite-gpu:2.9.0'
 }
